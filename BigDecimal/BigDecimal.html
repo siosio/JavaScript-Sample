@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf8" />
+    <title></title>
+</head>
+<body>
+<script type="text/javascript" src="BigDecimal.js"></script>
+<script type="text/javascript">
+    document.write('BigDecimal() -------------------------------------------------- ' + new BigDecimal() + '<br/>');
+    document.write('BigDecimal("") ------------------------------------------------ ' + new BigDecimal("") + '<br/>');
+    document.write('BigDecimal("abc") --------------------------------------------- ' + new BigDecimal("abc") + '<br/>');
+    document.write('BigDecimal("あああ") ------------------------------------------- ' + new BigDecimal("あああ") + '<br/>');
+    document.write('BigDecimal("12345") ------------------------------------------- ' + new BigDecimal("12345") + '<br/>');
+    document.write('BigDecimal("100").add(200) ------------------------------------ ' + new BigDecimal("100").add(200)+ '<br/>');
+    document.write('BigDecimal("1000000000").add(100000000000)--------------------- ' + new BigDecimal("1000000000").add(100000000000)+ '<br/>');
+    document.write('BigDecimal("1000000000", 1).add(100000000000, 2)--------------- ' + new BigDecimal("1000000000", 1).add(100000000000, 2)+ '<br/>');
+    document.write('BigDecimal("1", 0).add(BigDecimal(100, 2))--------------------- ' + new BigDecimal("1", 0).add(new BigDecimal(100, 2)) + '<br/>');
+    document.write('BigDecimal("99999", 0).add(BigDecimal(1.12345, 10), 2)--------- ' + new BigDecimal("99999", 0).add(new BigDecimal(1.12345, 10), 2) + '<br/>');
+    document.write('BigDecimal("1000000000", 5).add(BigDecimal(500, 10))----------- ' + new BigDecimal("1000000000", 5).add(new BigDecimal(500, 10)) + '<br/>');
+    document.write('BigDecimal("100.1111", 10).add(BigDecimal(900.1111, 10))------- ' + new BigDecimal("100.1111", 10).add(new BigDecimal(900.1111, 10)) + '<br/>');
+    document.write('BigDecimal("100.091", 10).add(BigDecimal(900.009, 10), 2)------ ' + new BigDecimal("100.091", 10).add(new BigDecimal(900.009, 10), 2) + '<br/>');
+    document.write('BigDecimal("100.091", 1).add(BigDecimal(900.009))-------------- ' + new BigDecimal("100.091", 1).add(new BigDecimal(900.009)) + '<br/>');
+</script>
+</body>
+</html>
