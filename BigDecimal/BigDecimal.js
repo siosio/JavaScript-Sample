@@ -1,7 +1,7 @@
 /**
  * BigDecimal.
- * @param value
- * @param scale
+ * @param value 値
+ * @param scale スケール
  * @constructor
  */
 var BigDecimal = function (value, scale) {
@@ -9,27 +9,30 @@ var BigDecimal = function (value, scale) {
   this._scale = isNumber(scale) ? scale : getScale(this._value);
 
   this.add = function(addValue, pScale) {
+    return expression(this, addValue, pScale, function(v1, v2) {
+      return v1 + v2;
+    });
+  };
+
+  this.subtract = function(subtractValue, pScale) {
+    return expression(this, subtractValue, pScale, function(v1, v2) {
+      return v1 - v2;
+    });
+  };
+
+  function expression(value1, value2, pScale, func) {
     var thisNumber,
         addNumber,
         maxScale;
 
-    if (!(addValue instanceof BigDecimal)) {
-      addValue = new BigDecimal(addValue);
+    if (!(value2 instanceof BigDecimal)) {
+      value2 = new BigDecimal(value2);
     }
-    maxScale = max(this._scale, addValue._scale);
-    thisNumber = toNumber(this._value, maxScale);
-    addNumber = toNumber(addValue._value, maxScale);
-    return new BigDecimal(toS(thisNumber + addNumber, maxScale), isNumber(pScale) ? pScale : maxScale);
-  };
-
-  this.subtract = function(subtractValue, pScale) {
-    pScale = isNumber(pScale) ? pScale : 0;
-    if (!(subtractValue instanceof BigDecimal)) {
-      subtractValue = new BigDecimal(subtractValue, pScale);
-    }
-    pScale = max(this._scale, subtractValue._scale, pScale);
-    return new BigDecimal(toNumber(this._value, pScale) + toNumber(subtractValue._value, pScale), pScale);
-  };
+    maxScale = max(value1._scale, value2._scale);
+    thisNumber = toNumber(value1._value, maxScale);
+    addNumber = toNumber(value2._value, maxScale);
+    return new BigDecimal(toS(func(thisNumber, addNumber), maxScale), isNumber(pScale) ? pScale : maxScale);
+  }
 
   this.toString = function() {
     var split = this._value.split(".");
