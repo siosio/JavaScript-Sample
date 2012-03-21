@@ -5,17 +5,23 @@
  * @constructor
  */
 var BigDecimal = function (value, scale) {
-  this._value = isNumber(value) ?  value.toString() : "0";
+  this._value = isNumber(value) ? value.toString() : "0";
   this._scale = isNumber(scale) ? scale : getScale(this._value);
 
-  this.add = function(addValue, pScale) {
-    return expression(this, addValue, pScale, function(v1, v2) {
+  /**
+   * 加算を行う。
+   * @param addValue
+   * @param pScale
+   * @return {*}
+   */
+  this.add = function (addValue, pScale) {
+    return expression(this, addValue, pScale, function (v1, v2) {
       return v1 + v2;
     });
   };
 
-  this.subtract = function(subtractValue, pScale) {
-    return expression(this, subtractValue, pScale, function(v1, v2) {
+  this.subtract = function (subtractValue, pScale) {
+    return expression(this, subtractValue, pScale, function (v1, v2) {
       return v1 - v2;
     });
   };
@@ -34,30 +40,29 @@ var BigDecimal = function (value, scale) {
     return new BigDecimal(toS(func(thisNumber, addNumber), maxScale), isNumber(pScale) ? pScale : maxScale);
   }
 
-  this.toString = function() {
+  this.toString = function () {
     var split = this._value.split(".");
-    if (this._scale == 0) {
+    if (this._scale === 0) {
       return split[0];
-    } else if (split.length == 1) {
+    } else if (split.length === 1) {
       return split[0] + "." + addZero("", this._scale);
-    } else if (split[1].length < scale) {
-      return split[0] + "." + addZero(split[1], scale);
+    } else if (split[1].length < this._scale) {
+      return split[0] + "." + addZero(split[1], this._scale);
     } else {
-      return split[0] + "." + split[1].substring(0, scale);
+      return split[0] + "." + split[1].substring(0, this._scale);
     }
   };
 
   function getScale(value) {
-    if (value.indexOf(".") == -1) {
+    if (value.indexOf(".") === -1) {
       return 0;
     }
     return value.split(".")[1].length;
   }
 
-
   function toNumber(pValue, pScale) {
     var split = pValue.split(".");
-    if (split.length == 1) {
+    if (split.length === 1) {
       return new Number(pValue + addZero("", pScale));
     }
     if (split[1].length >= pScale) {
@@ -69,23 +74,25 @@ var BigDecimal = function (value, scale) {
 
   function toS(pValue, pScale) {
     var str = pValue.toString();
-    if (pScale == 0) {
+    if (pScale === 0) {
       return str;
     }
     return str.substring(0, str.length - pScale) + "." + str.substring(str.length - pScale);
   }
+
   function addZero(pValue, count) {
-    var i;
-    for (i = pValue.length; i < count; i+= 1) {
-      pValue += "0";
+    var i,
+        ret = pValue;
+    for (i = ret.length; i < count; i += 1) {
+      ret += "0";
     }
-    return pValue;
+    return ret;
   }
 
   function max() {
     var i,
         maxValue = 0;
-    for (i = 0; i < arguments.length; i+= 1) {
+    for (i = 0; i < arguments.length; i += 1) {
       if (maxValue < arguments[i]) {
         maxValue = arguments[i];
       }
@@ -97,7 +104,7 @@ var BigDecimal = function (value, scale) {
     if (value === undefined) {
       return false;
     }
-    if (value.toString().length == 0) {
+    if (value.toString().length === 0) {
       return false;
     }
     return !isNaN(value);
