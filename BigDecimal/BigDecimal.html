@@ -21,8 +21,8 @@
     document.write('BigDecimal("100.1111", 10).add(BigDecimal(900.1111, 10))------- ' + new BigDecimal("100.1111", 10).add(new BigDecimal(900.1111, 10)) + '<br/>');
     document.write('BigDecimal("100.091", 10).add(BigDecimal(900.009, 10), 2)------ ' + new BigDecimal("100.091", 10).add(new BigDecimal(900.009, 10), 2) + '<br/>');
     document.write('BigDecimal("100.091", 1).add(BigDecimal(900.009))-------------- ' + new BigDecimal("100.091", 1).add(new BigDecimal(900.009)) + '<br/>');
-
-
+    document.write('BigDecimal("0.1", 1).add(BigDecimal(0.2))-------------- ' + new BigDecimal("0.1", 1).add(new BigDecimal(0.2)) + '<br/>');
+    document.write('BigDecimal("0.1", 1).add(BigDecimal(-0.1))-------------- ' + new BigDecimal("0.1", 1).add(new BigDecimal(-0.1)) + '<br/>');
 
     document.write('BigDecimal("100").subtract(BigDecimal(80))----------------- ' + new BigDecimal("100").subtract(new BigDecimal(80)) + '<br/>');
     document.write('BigDecimal("100").subtract(BigDecimal(80.01))-------------- ' + new BigDecimal("100").subtract(new BigDecimal(80.01)) + '<br/>');
